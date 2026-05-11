@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hor hor hor hor hor</title>
+</head>
+<body>
+    <h1>Pokedex chota</h1>
+    <input type="text" id="escribidor" placeholder="Ingrese el nombre o numero del pokemon">
+    <button onclick="buscarPokemon()">buscar</button>
+    <button onclick="ANTERIOR()">anterior</button>
+    <button onclick="SIGUIENTE()">siguiente</button>
+    <div id = "poke"></div>
+</body>
+<script>
+    const URL = 'https://pokeapi.co/api/v2/pokemon/'
+    async function buscarPokemon(){
+        let pokemon = await fetch(URL + document.getElementById('escribidor').value.toLowerCase());
+        let datos = await pokemon.json();
+        elpokemonaso = datos.id;
+        document.getElementById('poke').innerHTML =
+        `
+        <img src="${datos.sprites.front_default}">
+        <h3>${datos.name}</h3>
+        <p>Numero de pokedex: ${datos.id}</p>
+        `;
+    }
+    async function SIGUIENTE(){
+        elpokemonaso++;
+        let pokemon2 = await fetch(URL + elpokemonaso);
+        let datos = await pokemon2.json();
+        elpokemonaso = datos.id;
+        document.getElementById('poke').innerHTML =
+        `
+        <img src="${datos.sprites.front_default}">
+        <h3>${datos.name}</h3>
+        <p>Numero de pokedex: ${datos.id}</p>
+        `;
+    }
+    async function ANTERIOR(){
+        elpokemonaso--;
+        let pokemon2 = await fetch(URL + elpokemonaso);
+        let datos = await pokemon2.json();
+        elpokemonaso = datos.id;
+        document.getElementById('poke').innerHTML =
+        `
+        <img src="${datos.sprites.front_default}">
+        <h3>${datos.name}</h3>
+        <p>Numero de pokedex: ${datos.id}</p>
+        `;
+    }
+</script>
+</html>
